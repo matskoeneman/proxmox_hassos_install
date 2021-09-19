@@ -76,7 +76,7 @@ fi
 info "Using '$STORAGE' for storage location."
 
 # Get the next guest VM/LXC ID
-VMID=$(pvesh get /cluster/nextid)
+VMID=300
 info "Container ID is $VMID."
 
 # Get latest Home Assistant disk image archive URL
@@ -131,7 +131,7 @@ done
 
 # Create VM
 msg "Creating VM..."
-VM_NAME=$(sed -e "s/\_//g" -e "s/.${RELEASE_TYPE}.*$//" <<< $FILE)
+VM_NAME="home-assistant"
 qm create $VMID -agent 1 -bios ovmf -name $VM_NAME -net0 virtio,bridge=vmbr0 \
   -onboot 1 -ostype l26 -scsihw virtio-scsi-pci
 pvesm alloc $STORAGE $VMID $DISK0 128 1>&/dev/null
